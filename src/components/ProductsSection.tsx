@@ -56,18 +56,27 @@ const ProductsSection = forwardRef<HTMLElement, ProductsSectionProps>(
           className="flex flex-wrap gap-8 justify-center mb-16"
         >
           {CATEGORIES.map((cat) => (
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`text-xs font-bold tracking-[0.15em] uppercase transition-all duration-300 ${
+              className={`text-xs font-bold tracking-[0.15em] uppercase transition-all duration-300 relative ${
                 activeCategory === cat
-                  ? "text-[#111111] border-b-2 border-gold pb-1"
-                  : "text-gray-400 hover:text-gold pb-1"
+                  ? "text-[#111111]"
+                  : "text-gray-400 hover:text-gold"
               }`}
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
               {cat}
-            </button>
+              {activeCategory === cat && (
+                <motion.div
+                  layoutId="activeCategoryIndicator"
+                  className="absolute -bottom-2 left-0 right-0 h-[2px] bg-gold"
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+              )}
+            </motion.button>
           ))}
         </motion.div>
 

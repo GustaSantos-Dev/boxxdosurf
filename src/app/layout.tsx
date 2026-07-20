@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { Inter, Oswald, Orbitron } from "next/font/google";
 import SmoothScroller from "@/components/SmoothScroller";
 import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald" });
+const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron" });
 
 export const metadata: Metadata = {
   title: "BOXXDOSURF | Moda Masculina e Streetwear",
@@ -12,19 +17,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-BR">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="bg-white text-[#111111] antialiased overflow-x-hidden selection:bg-[#C5A059] selection:text-white texture-street">
+      <body className={`${inter.variable} ${oswald.variable} ${orbitron.variable} bg-white text-[#111111] antialiased overflow-x-hidden selection:bg-[#C5A059] selection:text-white texture-street`}>
         <SmoothScroller>{children}</SmoothScroller>
       </body>
     </html>

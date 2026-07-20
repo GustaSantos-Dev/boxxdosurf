@@ -25,13 +25,16 @@ export default function HeroSection({ onScrollToProducts }: HeroSectionProps) {
     >
       {/* Background Image */}
       <motion.div
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 overflow-hidden"
         style={{ y }}
       >
-        <div 
+        <motion.div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          initial={{ scale: 1.15 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 8, ease: "easeOut" }}
           style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?q=80&w=2400&auto=format&fit=crop')",
+            backgroundImage: "url('https://images.unsplash.com/photo-1617331721458-bd3bd3f9c7f8?q=80&w=2400&auto=format&fit=crop')",
           }}
         />
         {/* Gradient Overlay for text legibility */}

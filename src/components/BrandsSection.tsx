@@ -55,18 +55,27 @@ export default function BrandsSection({
             {brands.map((brand) => {
               const isActive = activeBrand === brand.id;
               return (
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   key={brand.id}
                   onClick={() => onSelectBrand(brand.id)}
-                  className={`text-xs md:text-sm font-bold tracking-[0.2em] uppercase transition-all duration-300 ${
+                  className={`text-xs md:text-sm font-bold tracking-[0.2em] uppercase transition-all duration-300 relative ${
                     isActive
-                      ? "text-[#111111] border-b-2 border-gold pb-1"
-                      : "text-gray-400 hover:text-gold pb-1"
+                      ? "text-[#111111]"
+                      : "text-gray-400 hover:text-gold"
                   }`}
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
                   {brand.label}
-                </button>
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeBrandIndicator"
+                      className="absolute -bottom-2 left-0 right-0 h-[2px] bg-gold"
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
+                  )}
+                </motion.button>
               );
             })}
           </div>

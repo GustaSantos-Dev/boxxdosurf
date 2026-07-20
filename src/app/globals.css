@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --font-logo: 'Orbitron', monospace;
-  --font-body: 'Inter', sans-serif;
-  --font-heading: 'Oswald', sans-serif;
+  --font-logo: var(--font-orbitron);
+  --font-body: var(--font-inter);
+  --font-heading: var(--font-oswald);
   --gold-accent: #C5A059;
   --gold-accent-hover: #A38245;
 }

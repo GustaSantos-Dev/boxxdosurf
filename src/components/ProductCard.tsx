@@ -37,12 +37,13 @@ export default function ProductCard({
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
+      whileHover={{ y: -8, transition: { duration: 0.3, ease: "easeOut" } }}
       transition={{ duration: 0.8, delay: (index % 4) * 0.1, ease: [0.21, 0.47, 0.32, 0.98] }}
-      className="group flex flex-col h-full cursor-pointer"
+      className="group flex flex-col h-full cursor-pointer bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1)] transition-shadow duration-500 border border-gray-100"
       onClick={onClick}
     >
       {/* Image Area */}
-      <div className="relative w-full aspect-[3/4] overflow-hidden bg-gray-100 mb-4">
+      <div className="relative w-full aspect-[3/4] overflow-hidden bg-gray-100 mb-4 rounded-t-xl">
         {/* Badge */}
         {product.badge && (
           <div className="absolute top-4 left-4 z-20 bg-white text-[#111111] text-[10px] font-bold px-3 py-1.5 uppercase tracking-[0.2em]">
@@ -63,7 +64,7 @@ export default function ProductCard({
             src={product.image}
             alt={product.name}
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-105"
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
             onError={() => setImageError(true)}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
@@ -88,7 +89,7 @@ export default function ProductCard({
       </div>
 
       {/* Card Content */}
-      <div className="flex flex-col flex-grow">
+      <div className="flex flex-col flex-grow px-5 pb-5">
         {/* Brand + Name */}
         <div className="mb-2">
           <span className="block text-gray-500 text-[10px] font-bold tracking-[0.2em] uppercase mb-1.5" style={{ fontFamily: "var(--font-heading)" }}>
