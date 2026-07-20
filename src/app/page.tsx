@@ -9,13 +9,14 @@ import CartDrawer from "@/components/CartDrawer";
 import ProductModal from "@/components/ProductModal";
 import Footer from "@/components/Footer";
 import Toast from "@/components/Toast";
-import ScrollReveal from "@/components/ScrollReveal";
+import GsapReveal from "@/components/GsapReveal";
 import { CartItem, Product } from "@/types";
 
 export default function Home() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [activeBrand, setActiveBrand] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [toast, setToast] = useState({ visible: false, message: "" });
 
@@ -115,33 +116,36 @@ export default function Home() {
         cartItems={cartItems}
         onOpenCart={() => setIsCartOpen(true)}
         onScrollToProducts={scrollToProducts}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
       />
 
       {/* Hero */}
       <HeroSection onScrollToProducts={scrollToProducts} />
 
-      <ScrollReveal>
+      <GsapReveal>
         {/* Brands Marquee + Filter */}
         <BrandsSection
           activeBrand={activeBrand}
           onSelectBrand={handleBrandSelect}
         />
-      </ScrollReveal>
+      </GsapReveal>
 
-      <ScrollReveal delay={0.1}>
+      <GsapReveal delay={0.1}>
         {/* Products Grid */}
         <ProductsSection
           ref={productsRef}
           activeBrand={activeBrand}
+          searchQuery={searchQuery}
           onAddToCart={addToCart}
           onOpenProduct={(product) => setSelectedProduct(product)}
         />
-      </ScrollReveal>
+      </GsapReveal>
 
-      <ScrollReveal delay={0.1}>
+      <GsapReveal delay={0.1}>
         {/* Footer */}
         <Footer />
-      </ScrollReveal>
+      </GsapReveal>
 
       {/* Cart Drawer */}
       <CartDrawer

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingCart, Menu, X } from "lucide-react";
+import { ShoppingCart, Menu, X, Search } from "lucide-react";
 import AnimatedLogo from "./AnimatedLogo";
 import { CartItem } from "@/types";
 
@@ -10,12 +10,16 @@ interface HeaderProps {
   cartItems: CartItem[];
   onOpenCart: () => void;
   onScrollToProducts: () => void;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
 }
 
 export default function Header({
   cartItems,
   onOpenCart,
   onScrollToProducts,
+  searchQuery,
+  setSearchQuery,
 }: HeaderProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -62,6 +66,21 @@ export default function Header({
               {link.label}
             </button>
           ))}
+          <div className="relative flex items-center">
+            <Search className="w-4 h-4 text-white/50 absolute left-3" />
+            <input
+              type="text"
+              placeholder="Buscar..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                if (e.target.value) {
+                  onScrollToProducts();
+                }
+              }}
+              className="pl-9 pr-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all placeholder:text-white/30 w-48 focus:w-64"
+            />
+          </div>
         </nav>
 
         {/* Cart + Mobile Menu */}
@@ -113,6 +132,21 @@ export default function Header({
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-black/98 border-t border-white/10 px-6 py-4 flex flex-col gap-4"
           >
+            <div className="relative flex items-center mb-2">
+              <Search className="w-4 h-4 text-white/50 absolute left-3" />
+              <input
+                type="text"
+                placeholder="Buscar produtos..."
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  if (e.target.value) {
+                    onScrollToProducts();
+                  }
+                }}
+                className="w-full pl-9 pr-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-white focus:outline-none focus:border-white/30 transition-all placeholder:text-white/30"
+              />
+            </div>
             {navLinks.map((link) => (
               <button
                 key={link.label}

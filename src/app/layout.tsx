@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import SmoothScroller from "@/components/SmoothScroller";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -24,7 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
       </head>
       <body className="bg-black text-white antialiased overflow-x-hidden">
-        {children}
+        <SmoothScroller>{children}</SmoothScroller>
       </body>
     </html>
   );

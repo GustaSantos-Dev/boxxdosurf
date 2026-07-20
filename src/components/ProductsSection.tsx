@@ -8,18 +8,20 @@ import { PRODUCTS, CATEGORIES } from "@/data/products";
 
 interface ProductsSectionProps {
   activeBrand: string;
+  searchQuery: string;
   onAddToCart: (product: Product, color: string, size: string) => void;
   onOpenProduct: (product: Product) => void;
 }
 
 const ProductsSection = forwardRef<HTMLElement, ProductsSectionProps>(
-  ({ activeBrand, onAddToCart, onOpenProduct }, ref) => {
+  ({ activeBrand, searchQuery, onAddToCart, onOpenProduct }, ref) => {
     const [activeCategory, setActiveCategory] = useState("Todas");
 
     const filtered = PRODUCTS.filter((p) => {
       const brandMatch = activeBrand === "all" || p.brand === activeBrand;
       const catMatch = activeCategory === "Todas" || p.category === activeCategory;
-      return brandMatch && catMatch;
+      const searchMatch = !searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase());
+      return brandMatch && catMatch && searchMatch;
     });
 
     return (
