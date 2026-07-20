@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { X, ShoppingCart, Check } from "lucide-react";
+import { X } from "lucide-react";
 import { Product } from "@/types";
 
 interface ProductModalProps {
@@ -31,11 +31,6 @@ export default function ProductModal({
     setTimeout(() => setAdded(false), 2000);
   };
 
-  // Reset state when product changes
-  if (product && selectedColor === "" && selectedSize === "") {
-    // will be handled by effect, but this is fine for initialization
-  }
-
   const discount =
     product && product.originalPrice
       ? Math.round(
@@ -53,33 +48,35 @@ export default function ProductModal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md z-50"
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50"
           />
 
           {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 40 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 40 }}
-            transition={{ type: "spring", stiffness: 300, damping: 35 }}
-            className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-2xl bg-[#0d0d0d] border border-white/10 rounded-3xl z-50 overflow-hidden flex flex-col md:flex-row max-h-[90vh] md:max-h-[85vh]"
+            initial={{ opacity: 0, y: "100%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed inset-x-0 bottom-0 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-4xl bg-white z-50 overflow-hidden flex flex-col md:flex-row max-h-[90vh]"
           >
+            {/* Close */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 z-50 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-black transition-colors bg-white/80 backdrop-blur-md rounded-full md:bg-transparent md:backdrop-blur-none"
+              aria-label="Fechar"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
             {/* Image Side */}
-            <div className="relative w-full md:w-5/12 h-56 md:h-auto flex-shrink-0 bg-[#111]">
-              {/* Color accent top */}
-              <div
-                className="absolute top-0 left-0 right-0 h-1 z-10"
-                style={{
-                  background: `linear-gradient(135deg, ${product.colors.join(", ")})`,
-                }}
-              />
+            <div className="relative w-full md:w-1/2 h-[40vh] md:h-auto flex-shrink-0 bg-gray-50">
               {product.badge && (
-                <div className="absolute top-4 left-4 z-20 bg-white text-black text-xs font-black px-3 py-1 rounded-full tracking-wider">
+                <div className="absolute top-4 left-4 z-20 bg-white text-[#111111] text-[10px] font-bold px-3 py-1.5 uppercase tracking-[0.2em]">
                   {product.badge}
                 </div>
               )}
               {discount > 0 && (
-                <div className="absolute top-4 right-14 z-20 bg-red-500 text-white text-xs font-black px-2 py-1 rounded-full">
+                <div className="absolute top-4 right-4 z-20 bg-[#111111] text-white text-[10px] font-bold px-3 py-1.5 tracking-wider">
                   -{discount}%
                 </div>
               )}
@@ -90,98 +87,66 @@ export default function ProductModal({
                   fill
                   className="object-cover"
                   onError={() => setImageError(true)}
-                  sizes="(max-width: 768px) 100vw, 400px"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               ) : (
-                <div
-                  className="w-full h-full flex items-center justify-center"
-                  style={{
-                    background: `linear-gradient(135deg, #111 0%, #1a1a1a 100%)`,
-                  }}
-                >
-                  <div
-                    className="w-24 h-24 rounded-full flex items-center justify-center text-4xl font-black"
-                    style={{
-                      background: `linear-gradient(135deg, ${product.colors.join(", ")})`,
-                      color: "#fff",
-                    }}
-                  >
-                    {product.brand[0]}
-                  </div>
+                <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
+                  {product.brand[0]}
                 </div>
               )}
             </div>
 
             {/* Content Side */}
-            <div className="flex-1 overflow-y-auto p-6 flex flex-col">
-              {/* Close */}
-              <button
-                onClick={onClose}
-                className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all"
-                aria-label="Fechar"
-              >
-                <X className="w-4 h-4" />
-              </button>
-
+            <div className="flex-1 overflow-y-auto p-6 md:p-12 flex flex-col">
               <div className="flex-1">
-                {/* Brand + Category */}
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-white/40 text-xs font-bold tracking-widest uppercase">
+                {/* Brand */}
+                <div className="mb-2">
+                  <span className="block text-gray-500 text-[10px] font-bold tracking-[0.2em] uppercase mb-1.5" style={{ fontFamily: "var(--font-heading)" }}>
                     {product.brand}
                   </span>
-                  <span className="text-white/20">•</span>
-                  <span className="text-white/30 text-xs">{product.category}</span>
                 </div>
 
                 {/* Name */}
                 <h2
-                  className="text-white font-black text-xl md:text-2xl leading-snug mb-3 break-words"
-                  style={{ fontFamily: "'Montserrat', sans-serif" }}
+                  className="text-[#111111] font-bold text-xl md:text-3xl leading-relaxed mb-4 uppercase"
+                  style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {product.name}
                 </h2>
 
-                {/* Description */}
-                <p className="text-white/50 text-sm leading-relaxed mb-5 whitespace-normal">
-                  {product.description}
-                </p>
-
                 {/* Price */}
-                <div className="mb-5">
+                <div className="flex items-center gap-3 mb-6">
                   {product.originalPrice && (
-                    <p className="text-white/30 text-sm line-through">
+                    <p className="text-gray-400 text-sm line-through">
                       R$ {product.originalPrice.toFixed(2).replace(".", ",")}
                     </p>
                   )}
-                  <p
-                    className="text-white font-black text-3xl"
-                    style={{ fontFamily: "'Montserrat', sans-serif" }}
-                  >
+                  <p className="text-gold font-bold text-xl">
                     R$ {product.price.toFixed(2).replace(".", ",")}
                   </p>
-                  {discount > 0 && (
-                    <p className="text-green-400 text-xs font-semibold mt-0.5">
-                      Economia de R$ {(product.originalPrice! - product.price).toFixed(2).replace(".", ",")}
-                    </p>
-                  )}
                 </div>
 
+                {/* Description */}
+                <p className="text-gray-600 text-sm leading-relaxed mb-8">
+                  {product.description}
+                </p>
+
                 {/* Color Selection */}
-                <div className="mb-5">
-                  <p className="text-white/50 text-xs font-semibold tracking-wider uppercase mb-2">
+                <div className="mb-8">
+                  <p className="text-[#111111] text-[10px] font-bold tracking-[0.1em] uppercase mb-3" style={{ fontFamily: "var(--font-heading)" }}>
                     Cor
                   </p>
-                  <div className="flex items-center gap-2 flex-wrap">
+                  <div className="flex items-center gap-2">
                     {product.colors.map((color) => {
                       const active = (selectedColor || product.colors[0]) === color;
                       return (
                         <button
                           key={color}
                           onClick={() => setSelectedColor(color)}
-                          className={`w-8 h-8 rounded-full border-2 transition-all duration-200 ${
+                          className={`w-6 h-6 rounded-full border transition-all duration-200 ${
                             active
-                              ? "border-white scale-110 shadow-lg"
-                              : "border-white/20 hover:border-white/50"
+                              ? "border-gold scale-110"
+                              : "border-gray-200 hover:border-gray-400"
                           }`}
                           style={{ backgroundColor: color }}
                           title={color}
@@ -192,8 +157,8 @@ export default function ProductModal({
                 </div>
 
                 {/* Size Selection */}
-                <div className="mb-6">
-                  <p className="text-white/50 text-xs font-semibold tracking-wider uppercase mb-2">
+                <div className="mb-8">
+                  <p className="text-[#111111] text-[10px] font-bold tracking-[0.1em] uppercase mb-3" style={{ fontFamily: "var(--font-heading)" }}>
                     Tamanho
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -203,10 +168,10 @@ export default function ProductModal({
                         <button
                           key={sz}
                           onClick={() => setSelectedSize(sz)}
-                          className={`px-4 py-2 rounded-xl text-sm font-bold border transition-all duration-200 ${
+                          className={`min-w-[40px] h-10 px-3 flex items-center justify-center text-xs font-bold transition-colors ${
                             active
-                              ? "bg-white text-black border-white"
-                              : "bg-transparent text-white/50 border-white/15 hover:border-white/40 hover:text-white"
+                              ? "bg-gold text-[#111111]"
+                              : "bg-gray-50 text-gray-600 hover:bg-gray-200"
                           }`}
                         >
                           {sz}
@@ -218,43 +183,16 @@ export default function ProductModal({
               </div>
 
               {/* Add to Cart CTA */}
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+              <button
                 onClick={handleAdd}
-                className={`w-full flex items-center justify-center gap-3 py-4 rounded-2xl font-bold text-base tracking-wide transition-all duration-300 ${
+                className={`w-full py-4 text-xs font-bold tracking-[0.15em] uppercase transition-all duration-300 ${
                   added
-                    ? "bg-green-500 text-white"
-                    : "bg-white text-black hover:bg-white/90"
+                    ? "bg-green-600 text-white"
+                    : "bg-gold text-[#111111] hover:bg-gold-dark"
                 }`}
-                style={{ fontFamily: "'Montserrat', sans-serif" }}
               >
-                <AnimatePresence mode="wait">
-                  {added ? (
-                    <motion.span
-                      key="added"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="flex items-center gap-2"
-                    >
-                      <Check className="w-5 h-5" />
-                      Adicionado ao Carrinho!
-                    </motion.span>
-                  ) : (
-                    <motion.span
-                      key="add"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="flex items-center gap-2"
-                    >
-                      <ShoppingCart className="w-5 h-5" />
-                      Adicionar ao Carrinho
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </motion.button>
+                {added ? "Adicionado" : "Adicionar ao Carrinho"}
+              </button>
             </div>
           </motion.div>
         </>

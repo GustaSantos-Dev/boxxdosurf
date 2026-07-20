@@ -27,7 +27,7 @@ const ProductsSection = forwardRef<HTMLElement, ProductsSectionProps>(
     return (
       <section
         ref={ref}
-        className="py-20 bg-black px-6 md:px-12"
+        className="py-24 bg-white px-6 md:px-12"
         id="collection"
       >
         {/* Section Header */}
@@ -35,21 +35,16 @@ const ProductsSection = forwardRef<HTMLElement, ProductsSectionProps>(
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-16"
         >
-          <p className="text-white/30 text-xs tracking-[0.3em] uppercase mb-2">
-            {activeBrand !== "all" ? activeBrand : "Toda a Coleção"}
-          </p>
           <h2
-            className="text-3xl md:text-5xl font-black text-white"
-            style={{ fontFamily: "'Montserrat', sans-serif" }}
+            className="text-3xl md:text-5xl font-bold text-[#111111] tracking-wider uppercase"
+            style={{ fontFamily: "var(--font-heading)" }}
           >
-            {activeBrand !== "all" ? `${activeBrand} Collection` : "Nossa Vitrine"}
+            {activeBrand !== "all" ? `${activeBrand} Collection` : "Seleção de Respeito"}
           </h2>
-          <p className="text-white/40 mt-3 text-sm">
-            {filtered.length} produto{filtered.length !== 1 ? "s" : ""} encontrado{filtered.length !== 1 ? "s" : ""}
-          </p>
+          <div className="w-12 h-[2px] bg-gold mx-auto mt-6" />
         </motion.div>
 
         {/* Category Filters */}
@@ -57,19 +52,19 @@ const ProductsSection = forwardRef<HTMLElement, ProductsSectionProps>(
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-wrap gap-2 justify-center mb-10"
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex flex-wrap gap-8 justify-center mb-16"
         >
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 ${
+              className={`text-xs font-bold tracking-[0.15em] uppercase transition-all duration-300 ${
                 activeCategory === cat
-                  ? "bg-white text-black"
-                  : "bg-white/5 text-white/60 border border-white/10 hover:bg-white/10 hover:text-white"
+                  ? "text-[#111111] border-b-2 border-gold pb-1"
+                  : "text-gray-400 hover:text-gold pb-1"
               }`}
-              style={{ fontFamily: "'Montserrat', sans-serif" }}
+              style={{ fontFamily: "'Inter', sans-serif" }}
             >
               {cat}
             </button>
@@ -84,8 +79,8 @@ const ProductsSection = forwardRef<HTMLElement, ProductsSectionProps>(
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 max-w-7xl mx-auto"
+              transition={{ duration: 0.5 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-16 max-w-[1400px] mx-auto"
             >
               {filtered.map((product, idx) => (
                 <ProductCard
@@ -105,12 +100,11 @@ const ProductsSection = forwardRef<HTMLElement, ProductsSectionProps>(
               exit={{ opacity: 0 }}
               className="text-center py-20"
             >
-              <div className="text-6xl mb-4">🔍</div>
-              <p className="text-white/40 text-lg">
-                Nenhum produto encontrado para esse filtro.
+              <p className="text-gray-400 text-sm tracking-widest uppercase mb-2">
+                Nenhum produto encontrado
               </p>
-              <p className="text-white/20 text-sm mt-2">
-                Tente outra marca ou categoria.
+              <p className="text-gray-300 text-xs tracking-widest uppercase">
+                Tente outra busca.
               </p>
             </motion.div>
           )}

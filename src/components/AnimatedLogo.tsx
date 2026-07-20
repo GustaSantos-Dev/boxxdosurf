@@ -4,9 +4,10 @@ import { motion, type Variants } from "framer-motion";
 
 interface AnimatedLogoProps {
   size?: "sm" | "md" | "lg";
+  color?: string;
 }
 
-export default function AnimatedLogo({ size = "md" }: AnimatedLogoProps) {
+export default function AnimatedLogo({ size = "md", color = "#ffffff" }: AnimatedLogoProps) {
   const scales = { sm: 0.55, md: 0.85, lg: 1.2 };
   const scale = scales[size];
 
@@ -40,8 +41,8 @@ export default function AnimatedLogo({ size = "md" }: AnimatedLogoProps) {
   return (
     <div
       style={{
-        width: `${265 * scale}px`,
-        height: `${54 * scale}px`,
+        width: `${310 * scale}px`,
+        height: `${60 * scale}px`,
         position: "relative",
       }}
       className="flex-shrink-0"
@@ -67,11 +68,11 @@ export default function AnimatedLogo({ size = "md" }: AnimatedLogoProps) {
             key={i}
             variants={letterVariants}
             style={{
-              fontFamily: "'Orbitron', monospace",
-              fontWeight: 900,
+              fontFamily: "var(--font-heading)",
+              fontWeight: 700,
               fontSize: "28px",
               letterSpacing: "0.05em",
-              color: "#ffffff",
+              color: color,
               lineHeight: 1,
             }}
           >
@@ -95,7 +96,7 @@ export default function AnimatedLogo({ size = "md" }: AnimatedLogoProps) {
         {/* Telhado - ponta afiada */}
         <motion.path
           d="M2 31 L22 8 L42 31"
-          stroke="#ffffff"
+          stroke={color}
           strokeWidth="2.2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -105,7 +106,7 @@ export default function AnimatedLogo({ size = "md" }: AnimatedLogoProps) {
         {/* Barra horizontal do telhado */}
         <motion.path
           d="M0 31 L44 31"
-          stroke="#ffffff"
+          stroke={color}
           strokeWidth="2.2"
           strokeLinecap="round"
           fill="none"
@@ -119,7 +120,7 @@ export default function AnimatedLogo({ size = "md" }: AnimatedLogoProps) {
             y1="31"
             x2={x}
             y2="51"
-            stroke="#ffffff"
+            stroke={color}
             strokeWidth="1.5"
             strokeLinecap="round"
             variants={makeDrawVariants(1.3 + idx * 0.05)}
@@ -131,7 +132,7 @@ export default function AnimatedLogo({ size = "md" }: AnimatedLogoProps) {
           y1="51"
           x2="39"
           y2="51"
-          stroke="#ffffff"
+          stroke={color}
           strokeWidth="2"
           strokeLinecap="round"
           variants={makeDrawVariants(1.7)}
@@ -141,7 +142,7 @@ export default function AnimatedLogo({ size = "md" }: AnimatedLogoProps) {
         {/* Tronco esquerdo (inclinado para direita) */}
         <motion.path
           d="M52 52 C54 43, 58 34, 63 18"
-          stroke="#ffffff"
+          stroke={color}
           strokeWidth="2"
           strokeLinecap="round"
           fill="none"
@@ -150,7 +151,7 @@ export default function AnimatedLogo({ size = "md" }: AnimatedLogoProps) {
         {/* Tronco direito (inclinado para esquerda, cruzando) */}
         <motion.path
           d="M76 52 C74 43, 70 34, 65 18"
-          stroke="#ffffff"
+          stroke={color}
           strokeWidth="2"
           strokeLinecap="round"
           fill="none"
@@ -159,7 +160,7 @@ export default function AnimatedLogo({ size = "md" }: AnimatedLogoProps) {
         {/* Folhas palmeira esquerda */}
         <motion.path
           d="M63 18 C58 10, 50 6, 48 4 M63 18 C60 9, 56 2, 52 0 M63 18 C65 9, 66 4, 68 1 M63 18 C68 12, 74 10, 76 8"
-          stroke="#ffffff"
+          stroke={color}
           strokeWidth="1.8"
           strokeLinecap="round"
           fill="none"
@@ -168,7 +169,7 @@ export default function AnimatedLogo({ size = "md" }: AnimatedLogoProps) {
         {/* Folhas palmeira direita */}
         <motion.path
           d="M65 18 C62 10, 58 4, 56 2 M65 18 C67 9, 70 3, 73 1 M65 18 C70 10, 76 7, 80 6 M65 18 C60 12, 54 10, 50 10"
-          stroke="#ffffff"
+          stroke={color}
           strokeWidth="1.8"
           strokeLinecap="round"
           fill="none"

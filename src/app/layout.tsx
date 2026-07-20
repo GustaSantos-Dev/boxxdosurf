@@ -20,11 +20,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="bg-black text-white antialiased overflow-x-hidden">
+      <body className="bg-white text-[#111111] antialiased overflow-x-hidden selection:bg-[#C5A059] selection:text-white texture-street">
         <SmoothScroller>{children}</SmoothScroller>
       </body>
     </html>

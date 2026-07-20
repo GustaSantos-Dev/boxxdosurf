@@ -110,7 +110,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-black overflow-x-hidden">
+    <main className="min-h-screen bg-white overflow-x-hidden">
       {/* Header */}
       <Header
         cartItems={cartItems}
