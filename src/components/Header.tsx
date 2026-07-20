@@ -55,18 +55,18 @@ export default function Header({
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex flex-1 justify-center items-center gap-6 lg:gap-10">
           {navLinks.map((link) => (
             <button
               key={link.label}
               onClick={link.action}
-              className="text-white/70 hover:text-white text-sm font-medium tracking-wider uppercase transition-colors duration-200 hover:text-glow"
+              className="text-white/70 hover:text-white text-sm font-medium tracking-wider uppercase transition-colors duration-200 hover:text-glow whitespace-nowrap"
               style={{ fontFamily: "'Montserrat', sans-serif" }}
             >
               {link.label}
             </button>
           ))}
-          <div className="relative flex items-center">
+          <div className="relative flex items-center ml-2 lg:ml-6">
             <Search className="w-4 h-4 text-white/50 absolute left-3" />
             <input
               type="text"
@@ -78,7 +78,7 @@ export default function Header({
                   onScrollToProducts();
                 }
               }}
-              className="pl-9 pr-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all placeholder:text-white/30 w-48 focus:w-64"
+              className="pl-9 pr-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all placeholder:text-white/30 w-32 lg:w-48 focus:w-48 lg:focus:w-64"
             />
           </div>
         </nav>

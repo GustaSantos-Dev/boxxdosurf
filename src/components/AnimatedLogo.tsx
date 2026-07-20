@@ -38,16 +38,24 @@ export default function AnimatedLogo({ size = "md" }: AnimatedLogoProps) {
   });
 
   return (
-    <motion.div
-      className="flex items-center gap-1 select-none cursor-pointer"
-      style={{ transform: `scale(${scale})`, transformOrigin: "left center" }}
-      whileHover={{
-        filter:
-          "drop-shadow(0 0 8px rgba(255,255,255,0.9)) drop-shadow(0 0 24px rgba(255,255,255,0.45))",
-        transition: { duration: 0.3 },
+    <div
+      style={{
+        width: `${265 * scale}px`,
+        height: `${54 * scale}px`,
+        position: "relative",
       }}
+      className="flex-shrink-0"
     >
-      {/* BOXXDOSURF text */}
+      <motion.div
+        className="flex items-center gap-1 select-none cursor-pointer absolute top-0 left-0"
+        style={{ transform: `scale(${scale})`, transformOrigin: "top left" }}
+        whileHover={{
+          filter:
+            "drop-shadow(0 0 8px rgba(255,255,255,0.9)) drop-shadow(0 0 24px rgba(255,255,255,0.45))",
+          transition: { duration: 0.3 },
+        }}
+      >
+        {/* BOXXDOSURF text */}
       <motion.div
         className="flex items-center"
         variants={containerVariants}
@@ -167,6 +175,7 @@ export default function AnimatedLogo({ size = "md" }: AnimatedLogoProps) {
           variants={makeDrawVariants(1.75)}
         />
       </motion.svg>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 }
