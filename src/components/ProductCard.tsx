@@ -60,14 +60,20 @@ export default function ProductCard({
 
         {/* Product Image */}
         {!imageError ? (
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            className="object-cover transition-transform duration-700 group-hover:scale-110"
-            onError={() => setImageError(true)}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          />
+          <>
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-110"
+              onError={() => setImageError(true)}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            />
+            <div 
+              className="absolute inset-0 mix-blend-color pointer-events-none transition-colors duration-500 opacity-30"
+              style={{ backgroundColor: selectedColor || 'transparent' }}
+            />
+          </>
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gray-50 text-gray-400">
             {product.brand[0]}

@@ -1,9 +1,11 @@
 "use client";
 
+import React, { useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import Image from "next/image";
-import { CartItem } from "@/types";
+import { CartItem, Product } from "@/types";
+import { PRODUCTS } from "@/data/products";
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -11,6 +13,7 @@ interface CartDrawerProps {
   items: CartItem[];
   onRemoveItem: (id: string, color: string, size: string) => void;
   onUpdateQuantity: (id: string, color: string, size: string, qty: number) => void;
+  onSelectProduct?: (product: Product) => void;
 }
 
 export default function CartDrawer({
@@ -19,6 +22,7 @@ export default function CartDrawer({
   items,
   onRemoveItem,
   onUpdateQuantity,
+  onSelectProduct,
 }: CartDrawerProps) {
   const total = items.reduce(
     (sum, item) => sum + item.product.price * item.quantity,
@@ -26,20 +30,64 @@ export default function CartDrawer({
   );
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
+  const suggestions = useMemo(() => {
+    if (items.length === 0) return [];
+    
+    const cartCategories = items.map(item => item.product.category);
+    let targetCategories: string[] = [];
+    
+    if (cartCategories.some(c => ["Camisetas", "Camisas de Time", "Camisas Polo", "Moletons", "Jaquetas"].includes(c))) {
+      targetCategories = ["Bermudas", "Shorts de Jogador", "Calças de Jogador", "Bonés", "Acessórios", "Tênis", "Óculos"];
+    } else if (cartCategories.some(c => ["Bermudas", "Shorts de Jogador", "Calças de Jogador"].includes(c))) {
+      targetCategories = ["Camisetas", "Camisas de Time", "Tênis", "Meias"];
+    } else if (cartCategories.some(c => ["Tênis"].includes(c))) {
+      targetCategories = ["Meias", "Camisetas", "Shorts de Jogador"];
+    } else {
+      targetCategories = ["Tênis", "Camisetas", "Bonés"];
+    }
+    
+    const cartProductIds = items.map(item => item.product.id);
+    const potentialSuggestions = PRODUCTS.filter(
+      p => targetCategories.includes(p.category) && !cartProductIds.includes(p.id)
+    );
+    
+    // Sort randomly but deterministically based on first item id to avoid hydration mismatch, or just simple slice if not SSR
+    // Since this is in drawer and not SSR rendered initially (or client side), Math.random is okay, but let's be safe:
+    return potentialSuggestions.slice(0, 2); 
+  }, [items]);
+
+  const colorNames: Record<string, string> = {
+    "#000000": "Preto",
+    "#111111": "Preto",
+    "#FFFFFF": "Branco",
+    "#C0C0C0": "Cinza",
+    "#ADB5BD": "Cinza Claro",
+    "#E63946": "Vermelho",
+    "#F4D03F": "Amarelo",
+    "#2D6A4F": "Verde",
+    "#1A73E8": "Azul",
+    "#1D3557": "Azul Marinho",
+    "#F4A261": "Laranja",
+    "#FF6B35": "Laranja Neon",
+    "#A9845A": "Marrom/Areia"
+  };
+
   const handleWhatsappCheckout = () => {
     if (items.length === 0) return;
 
     const greeting = "Olá, BOXXDOSURF! Tenho interesse em realizar um pedido.\n\n";
     const itemsList = items
       .map(
-        (item, idx) =>
-          `${idx + 1}. *${item.product.name}*\n` +
+        (item, idx) => {
+          const colorName = colorNames[item.selectedColor.toUpperCase()] || colorNames[item.selectedColor] || item.selectedColor;
+          return `${idx + 1}. *${item.product.name}*\n` +
           `   • Marca: ${item.product.brand}\n` +
           `   • Tamanho: ${item.selectedSize}\n` +
-          `   • Cor: ${item.selectedColor}\n` +
+          `   • Cor: ${colorName}\n` +
           `   • Qtd: ${item.quantity}x\n` +
           `   • Preço unit.: R$ ${item.product.price.toFixed(2).replace(".", ",")}\n` +
-          `   • Subtotal: R$ ${(item.product.price * item.quantity).toFixed(2).replace(".", ",")}`
+          `   • Subtotal: R$ ${(item.product.price * item.quantity).toFixed(2).replace(".", ",")}`;
+        }
       )
       .join("\n\n");
 
@@ -138,6 +186,10 @@ export default function CartDrawer({
                             className="object-cover"
                             sizes="96px"
                           />
+                          <div 
+                            className="absolute inset-0 mix-blend-color pointer-events-none opacity-30"
+                            style={{ backgroundColor: item.selectedColor }}
+                          />
                         </div>
 
                         {/* Info */}
@@ -164,7 +216,7 @@ export default function CartDrawer({
                           </div>
                           
                           <p className="text-gray-500 text-xs mb-3">
-                            {item.selectedSize} | {item.selectedColor}
+                            {item.selectedSize} | {colorNames[item.selectedColor.toUpperCase()] || colorNames[item.selectedColor] || item.selectedColor}
                           </p>
 
                           <div className="mt-auto flex items-end justify-between">
@@ -210,6 +262,43 @@ export default function CartDrawer({
                 )}
               </AnimatePresence>
             </div>
+
+            {/* Suggestions Section */}
+            {items.length > 0 && suggestions.length > 0 && (
+              <div className="px-8 pb-6 border-t border-gray-100 pt-6">
+                <p className="text-[#111111] text-xs font-bold tracking-[0.15em] uppercase mb-4" style={{ fontFamily: "var(--font-heading)" }}>
+                  Complete o Visual
+                </p>
+                <div className="flex gap-4 overflow-x-auto pb-2 -mx-8 px-8 snap-x snap-mandatory hide-scrollbar">
+                  {suggestions.map((suggestion) => (
+                    <div 
+                      key={suggestion.id} 
+                      className="min-w-[140px] w-[140px] snap-start cursor-pointer group"
+                      onClick={() => onSelectProduct?.(suggestion)}
+                    >
+                      <div className="relative w-full aspect-[3/4] bg-gray-50 mb-2 overflow-hidden rounded-md">
+                        <Image
+                          src={suggestion.image}
+                          alt={suggestion.name}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          sizes="140px"
+                        />
+                      </div>
+                      <p className="text-[#111111] text-[10px] font-bold tracking-[0.2em] uppercase mb-1 truncate" style={{ fontFamily: "var(--font-heading)" }}>
+                        {suggestion.brand}
+                      </p>
+                      <p className="text-gray-600 text-xs truncate mb-1" style={{ fontFamily: "'Inter', sans-serif" }}>
+                        {suggestion.name}
+                      </p>
+                      <p className="text-gold text-xs font-semibold">
+                        R$ {suggestion.price.toFixed(2).replace(".", ",")}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Footer */}
             {items.length > 0 && (

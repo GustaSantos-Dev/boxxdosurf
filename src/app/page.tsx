@@ -154,6 +154,10 @@ export default function Home() {
         items={cartItems}
         onRemoveItem={removeItem}
         onUpdateQuantity={updateQuantity}
+        onSelectProduct={(product) => {
+          setSelectedProduct(product);
+          setIsCartOpen(false);
+        }}
       />
 
       {/* Product Modal */}

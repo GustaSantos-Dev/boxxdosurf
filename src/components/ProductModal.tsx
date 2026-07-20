@@ -81,14 +81,20 @@ export default function ProductModal({
                 </div>
               )}
               {!imageError ? (
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  fill
-                  className="object-cover"
-                  onError={() => setImageError(true)}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
+                <>
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-cover"
+                    onError={() => setImageError(true)}
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div 
+                    className="absolute inset-0 mix-blend-color pointer-events-none transition-colors duration-500 opacity-30"
+                    style={{ backgroundColor: selectedColor || 'transparent' }}
+                  />
+                </>
               ) : (
                 <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
                   {product.brand[0]}
