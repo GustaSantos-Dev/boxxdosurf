@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { X } from "lucide-react";
 import { Product } from "@/types";
 
@@ -21,6 +20,14 @@ export default function ProductModal({
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [added, setAdded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [currentImage, setCurrentImage] = useState<string>("");
+  const [lastProductId, setLastProductId] = useState<string>("");
+
+  if (product && product.id !== lastProductId) {
+    setLastProductId(product.id);
+    setCurrentImage(product.image);
+    setImageError(false);
+  }
 
   const handleAdd = () => {
     if (!product) return;
@@ -37,6 +44,8 @@ export default function ProductModal({
           ((product.originalPrice - product.price) / product.originalPrice) * 100
         )
       : 0;
+
+  const isSpecialProduct = product?.name === 'Shorts de Treino Strike Dri-FIT';
 
   return (
     <AnimatePresence>
@@ -82,17 +91,16 @@ export default function ProductModal({
               )}
               {!imageError ? (
                 <>
-                  <Image
-                    src={product.image}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={isSpecialProduct ? (currentImage || product.image) : product.image}
                     alt={product.name}
-                    fill
-                    className="object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
                     onError={() => setImageError(true)}
-                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <div 
                     className="absolute inset-0 mix-blend-color pointer-events-none transition-colors duration-500 opacity-30"
-                    style={{ backgroundColor: selectedColor || 'transparent' }}
+                    style={{ backgroundColor: (isSpecialProduct && selectedColor) ? selectedColor : 'transparent' }}
                   />
                 </>
               ) : (
@@ -138,29 +146,40 @@ export default function ProductModal({
                 </p>
 
                 {/* Color Selection */}
-                <div className="mb-8">
-                  <p className="text-[#111111] text-[10px] font-bold tracking-[0.1em] uppercase mb-3" style={{ fontFamily: "var(--font-heading)" }}>
-                    Cor
-                  </p>
-                  <div className="flex items-center gap-2">
-                    {product.colors.map((color) => {
-                      const active = (selectedColor || product.colors[0]) === color;
-                      return (
-                        <button
-                          key={color}
-                          onClick={() => setSelectedColor(color)}
-                          className={`w-6 h-6 rounded-full border transition-all duration-200 ${
-                            active
-                              ? "border-gold scale-110"
-                              : "border-gray-200 hover:border-gray-400"
-                          }`}
-                          style={{ backgroundColor: color }}
-                          title={color}
-                        />
-                      );
-                    })}
+                {isSpecialProduct && (
+                  <div className="mb-8">
+                    <p className="text-[#111111] text-[10px] font-bold tracking-[0.1em] uppercase mb-3" style={{ fontFamily: "var(--font-heading)" }}>
+                      Cor
+                    </p>
+                    <div className="flex items-center gap-2">
+                      {product.colors.map((color) => {
+                        const active = (selectedColor || product.colors[0]) === color;
+                        return (
+                          <button
+                            key={color}
+                            onClick={() => {
+                              setSelectedColor(color);
+                              if (color.toUpperCase() === "#000000" || color.toUpperCase() === "#111111") {
+                                setCurrentImage("/images/shorts-nike-preto.jpg");
+                              } else if (color.toUpperCase() === "#1A73E8" || color.toUpperCase() === "#1D3557") {
+                                setCurrentImage("/images/shorts-nike-azul.jpg");
+                              } else {
+                                setCurrentImage(product.image);
+                              }
+                            }}
+                            className={`w-6 h-6 rounded-full border transition-all duration-200 ${
+                              active
+                                ? "border-gold scale-110"
+                                : "border-gray-200 hover:border-gray-400"
+                            }`}
+                            style={{ backgroundColor: color }}
+                            title={color}
+                          />
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Size Selection */}
                 <div className="mb-8">

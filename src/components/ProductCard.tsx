@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Product } from "@/types";
 
 interface ProductCardProps {
@@ -25,12 +24,15 @@ export default function ProductCard({
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[0]);
   const [imageError, setImageError] = useState(false);
+  const [currentImage, setCurrentImage] = useState(product.image);
 
   const discount = product.originalPrice
     ? Math.round(
         ((product.originalPrice - product.price) / product.originalPrice) * 100
       )
     : 0;
+
+  const isSpecialProduct = product.name === 'Shorts de Treino Strike Dri-FIT';
 
   return (
     <motion.div
@@ -61,17 +63,16 @@ export default function ProductCard({
         {/* Product Image */}
         {!imageError ? (
           <>
-            <Image
-              src={product.image}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={isSpecialProduct ? currentImage : product.image}
               alt={product.name}
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-110"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               onError={() => setImageError(true)}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             />
             <div 
               className="absolute inset-0 mix-blend-color pointer-events-none transition-colors duration-500 opacity-30"
-              style={{ backgroundColor: selectedColor || 'transparent' }}
+              style={{ backgroundColor: (isSpecialProduct && selectedColor) ? selectedColor : 'transparent' }}
             />
           </>
         ) : (
@@ -124,24 +125,34 @@ export default function ProductCard({
         {/* Selectors (Visible on hover on desktop, always on mobile) */}
         <div className="flex flex-col gap-3">
           {/* Colors */}
-          <div className="flex items-center gap-1.5">
-            {product.colors.map((color) => (
-              <button
-                key={color}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedColor(color);
-                }}
-                className={`w-4 h-4 rounded-full border transition-all duration-200 ${
-                  selectedColor === color
-                    ? "border-gold scale-110"
-                    : "border-gray-300"
-                }`}
-                style={{ backgroundColor: color }}
-                title={color}
-              />
-            ))}
-          </div>
+          {isSpecialProduct && (
+            <div className="flex items-center gap-1.5">
+              {product.colors.map((color) => (
+                <button
+                  key={color}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedColor(color);
+                    
+                    if (color.toUpperCase() === "#000000" || color.toUpperCase() === "#111111") {
+                      setCurrentImage("/images/shorts-nike-preto.jpg");
+                    } else if (color.toUpperCase() === "#1A73E8" || color.toUpperCase() === "#1D3557") {
+                      setCurrentImage("/images/shorts-nike-azul.jpg");
+                    } else {
+                      setCurrentImage(product.image);
+                    }
+                  }}
+                  className={`w-4 h-4 rounded-full border transition-all duration-200 ${
+                    selectedColor === color
+                      ? "border-gold scale-110"
+                      : "border-gray-300"
+                  }`}
+                  style={{ backgroundColor: color }}
+                  title={color}
+                />
+              ))}
+            </div>
+          )}
 
           {/* Sizes */}
           <div className="flex flex-wrap gap-1.5">
