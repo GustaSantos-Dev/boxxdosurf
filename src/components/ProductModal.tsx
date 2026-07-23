@@ -60,13 +60,15 @@ export default function ProductModal({
             className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50"
           />
 
-          {/* Modal */}
+          {/* Modal com Escudo de Scroll adicionado */}
           <motion.div
             initial={{ opacity: 0, y: "100%" }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="fixed inset-x-0 bottom-0 md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-4xl bg-white z-50 overflow-hidden flex flex-col md:flex-row max-h-[90vh]"
+            onWheel={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
           >
             {/* Close */}
             <button
@@ -91,7 +93,6 @@ export default function ProductModal({
               )}
               {!imageError ? (
                 <>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={isSpecialProduct ? (currentImage || product.image) : product.image}
                     alt={product.name}
@@ -110,8 +111,8 @@ export default function ProductModal({
               )}
             </div>
 
-            {/* Content Side */}
-            <div className="flex-1 overflow-y-auto p-6 md:p-12 flex flex-col">
+            {/* Content Side - Adicionado overscroll-contain */}
+            <div className="flex-1 overflow-y-auto overscroll-contain p-6 md:p-12 flex flex-col">
               <div className="flex-1">
                 {/* Brand */}
                 <div className="mb-2">

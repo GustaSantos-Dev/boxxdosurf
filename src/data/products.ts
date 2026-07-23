@@ -47,7 +47,7 @@ export const PRODUCTS: Product[] = [
     brand: "Nike",
     category: "Shorts de Jogador",
     price: 149.90,
-    image: "/images/prod-nike-camiseta.jpg",
+    image: "/images/shorts-nike-preto.jpg",
     colors: ["#111111", "#1D3557", "#FFFFFF"],
     sizes: ["P", "M", "G", "GG"],
     description: "Liberdade de movimento para você deitar no fut.",

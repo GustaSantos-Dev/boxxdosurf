@@ -1,2 +1,47 @@
-{"timestamp":"00:00:05.267","source":"Server","level":"LOG","message":""}
-{"timestamp":"00:00:15.115","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:01.758","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:07.471","source":"Server","level":"LOG","message":"○ Compiling / ..."}
+{"timestamp":"00:00:15.632","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:16.777","source":"Browser","level":"WARN","message":"Image with src \"https://images.unsplash.com/photo-1617331721458-bd3bd3f9c7f8?q=80&w=2400&auto=format&fit=crop\" has \"fill\" but is missing \"sizes\" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes"}
+{"timestamp":"00:00:16.904","source":"Server","level":"WARN","message":"[browser] \"\\u001b[33mImage with src \\\"https://images.unsplash.com/photo-1617331721458-bd3bd3f9c7f8?q=80&w=2400&auto=format&fit=crop\\\" has \\\"fill\\\" but is missing \\\"sizes\\\" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes\\u001b[39m\""}
+{"timestamp":"00:00:16.905","source":"Browser","level":"WARN","message":"\u001b[33mImage with src \"https://images.unsplash.com/photo-1617331721458-bd3bd3f9c7f8?q=80&w=2400&auto=format&fit=crop\" has \"fill\" but is missing \"sizes\" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes\u001b[39m"}
+{"timestamp":"00:00:17.421","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-nike-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:00:17.423","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-adidas-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:00:17.426","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-nike-camiseta.jpg\" \"received\" null"}
+{"timestamp":"00:00:19.277","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-puma-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:00:19.289","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-adidas-moletom.jpg\" \"received\" null"}
+{"timestamp":"00:00:22.262","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-newbalance-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:00:22.323","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-lacoste-polo.jpg\" \"received\" null"}
+{"timestamp":"00:00:23.161","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-adidas-moletom.jpg\" \"received\" null"}
+{"timestamp":"00:00:23.382","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-fila-jaqueta.jpg\" \"received\" null"}
+{"timestamp":"00:00:23.387","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-lacoste-polo.jpg\" \"received\" null"}
+{"timestamp":"00:00:23.825","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-nike-camiseta.jpg\" \"received\" null"}
+{"timestamp":"00:00:23.876","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-fila-jaqueta.jpg\" \"received\" null"}
+{"timestamp":"00:00:23.883","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-puma-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:00:26.538","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-adidas-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:00:26.595","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-nike-camiseta.jpg\" \"received\" null"}
+{"timestamp":"00:00:26.596","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-puma-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:00:52.767","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-nike-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:00:52.812","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-nike-camiseta.jpg\" \"received\" null"}
+{"timestamp":"00:01:05.961","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-adidas-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:01:06.086","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-nike-camiseta.jpg\" \"received\" null"}
+{"timestamp":"00:01:06.132","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-nike-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:01:48.850","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-nike-camiseta.jpg\" \"received\" null"}
+{"timestamp":"00:01:48.959","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-nike-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:02:05.383","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-nike-camiseta.jpg\" \"received\" null"}
+{"timestamp":"00:02:15.620","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-fila-jaqueta.jpg\" \"received\" null"}
+{"timestamp":"00:02:19.660","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-fila-jaqueta.jpg\" \"received\" null"}
+{"timestamp":"00:02:19.919","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-adidas-moletom.jpg\" \"received\" null"}
+{"timestamp":"00:02:19.920","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-adidas-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:02:19.924","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-puma-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:02:20.032","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-newbalance-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:02:20.142","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-nike-camiseta.jpg\" \"received\" null"}
+{"timestamp":"00:02:20.150","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-nike-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:02:20.157","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-lacoste-polo.jpg\" \"received\" null"}
+{"timestamp":"00:02:20.450","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-adidas-moletom.jpg\" \"received\" null"}
+{"timestamp":"00:02:20.524","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-fila-jaqueta.jpg\" \"received\" null"}
+{"timestamp":"00:02:20.613","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-lacoste-polo.jpg\" \"received\" null"}
+{"timestamp":"00:02:21.121","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-puma-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:02:21.158","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-nike-camiseta.jpg\" \"received\" null"}
+{"timestamp":"00:02:21.671","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-nike-camiseta.jpg\" \"received\" null"}
+{"timestamp":"00:02:21.741","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-puma-tenis.jpg\" \"received\" null"}
+{"timestamp":"00:02:21.778","source":"Server","level":"ERROR","message":"⨯ \"The requested resource isn't a valid image for\" \"/images/prod-adidas-tenis.jpg\" \"received\" null"}
